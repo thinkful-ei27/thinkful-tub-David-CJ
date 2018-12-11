@@ -114,8 +114,7 @@ const addVideosToStore = function(videos) {
 // 2. Add this array of DOM elements to the appropriate DOM element
 // TEST IT!
 const render = function() {
-  let videoHTML = 
-  store.videos.map( video => {
+  let videoHTML = store.videos.map( video => {
     return generateVideoItemHtml(video);
   });
 $('ul.results').html(videoHTML);
@@ -143,7 +142,9 @@ $('form').submit( event => {
   let searchVal = $('#search-term').val();
   $('#search-term').val('');
   fetchVideos(searchVal, res => {
-    
+    const videoObjectArray =  decorateResponse(res);
+    addVideosToStore(videoObjectArray);
+    render();
   });
 
 })
@@ -153,4 +154,5 @@ $('form').submit( event => {
 $(function () {
   // TASK:
   // 1. Run `handleFormSubmit` to bind the event listener to the DOM
+  handleFormSubmit();
 });
